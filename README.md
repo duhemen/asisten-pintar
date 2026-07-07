@@ -354,7 +354,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 | Nama | Peran |
 |------|-------|
-| **Muhammad Haramein** | Lead Developer & AI Engineer |
+| **Be Your Self Ingt LUCA** | Lead Developer & AI Engineer |
 
 ---
 
