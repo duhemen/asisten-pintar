@@ -1,0 +1,93 @@
+# ========================================
+# ASISTEN PINTAR - .gitignore
+# ========================================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+env_asisten/
+*.egg-info/
+dist/
+build/
+*.egg
+
+# --- Environment Variables ---
+.env
+.env.local
+.env.*.local
+*.env
+
+# --- Database ---
+*.db
+*.sqlite
+*.sqlite3
+*.pgsql
+*.pgdump
+*.log
+
+# --- Storage & Temp ---
+storage/
+temp/
+temp_docs/
+temp_vision/
+temp_ocr/
+temp_tnd/
+temp_disposisi/
+temp_batch/
+temp_extract/
+*.tmp
+*.temp
+*.cache
+
+# --- Documents & Media ---
+*.pdf
+*.docx
+*.doc
+*.xlsx
+*.xls
+*.pptx
+*.ppt
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.mp3
+*.wav
+*.m4a
+*.flac
+
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Testing ---
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Backup ---
+*.bak
+*.backup
+*.old
+*.orig
+
+# --- Docker ---
+docker-compose.override.yml
+.dockerignore
