@@ -1,8 +1,6 @@
 ---
 
 ## 📝 README.md untuk Asisten Pintar
-
-```markdown
 <div align="center">
   <img src="https://img.shields.io/badge/version-2.0.0-blue.svg" alt="Version">
   <img src="https://img.shields.io/badge/python-3.11-blue.svg" alt="Python">
