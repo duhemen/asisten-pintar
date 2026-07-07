@@ -1,6 +1,6 @@
 ---
 
-## 📝 README.md untuk Asisten Pintar
+## 📝 README.md - VERSI TERBARU
 <div align="center">
   <img src="https://img.shields.io/badge/version-2.0.0-blue.svg" alt="Version">
   <img src="https://img.shields.io/badge/python-3.11-blue.svg" alt="Python">
@@ -8,6 +8,8 @@
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux-lightgrey" alt="Platform">
   <img src="https://img.shields.io/badge/AI-Ollama-orange" alt="AI">
   <img src="https://img.shields.io/badge/OCR-PaddleOCR%20%7C%20Tesseract-brightgreen" alt="OCR">
+  <img src="https://img.shields.io/badge/Database-PostgreSQL-4169E1" alt="Database">
+  <img src="https://img.shields.io/badge/Status-Production_Ready-success" alt="Status">
 </div>
 
 <br>
@@ -19,7 +21,6 @@
   <br>
   <p>
     <a href="#-fitur-unggulan">Fitur</a> •
-    <a href="#-demo-aplikasi">Demo</a> •
     <a href="#-teknologi">Teknologi</a> •
     <a href="#-instalasi">Instalasi</a> •
     <a href="#-panduan-penggunaan">Panduan</a> •
@@ -54,19 +55,9 @@
 | 📊 **Dashboard** | Statistik & monitoring kinerja sekretaris | ✅ |
 | 👁️ **Vision AI** | OCR cerdas untuk dokumen scan dan gambar | ✅ |
 | 🎙️ **Transkripsi Audio** | Konversi rekaman rapat ke teks (Faster-Whisper) | ✅ |
-
----
-
-## 🖥️ Demo Aplikasi
-
-### Dashboard
-![Dashboard](https://via.placeholder.com/800x400/2d3748/ffffff?text=Dashboard+Pimpinan)
-
-### Notulensi Rapat
-![Notulensi](https://via.placeholder.com/800x400/2d3748/ffffff?text=Notulensi+Rapat)
-
-### Disposisi Surat
-![Disposisi](https://via.placeholder.com/800x400/2d3748/ffffff?text=Disposisi+Surat)
+| 💾 **Database** | Penyimpanan permanen dengan PostgreSQL | ✅ |
+| 📥 **Download Hasil** | Download notulensi, disposisi, dan teks ekstraksi | ✅ |
+| 🎈 **Balon Kemenangan** | Animasi balon saat proses berhasil! | ✅ |
 
 ---
 
@@ -94,6 +85,7 @@
 |-------|--------|--------|
 | Qwen2.5 14B Instruct | 9 GB | Text generation (Notulensi & Disposisi) |
 | Qwen2-VL 2B | 2.3 GB | Vision AI (OCR gambar/PDF scan) |
+| Faster-Whisper Small | 2 GB | Audio Transcription |
 
 ---
 
@@ -154,12 +146,14 @@ ollama pull hf.co/bartowski/Qwen2-VL-2B-Instruct-GGUF:Q4_K_M
 
 ```bash
 # Install PostgreSQL: https://www.postgresql.org/download/
-# Buat database:
+
+# Buat database
 psql -U postgres
 CREATE DATABASE asisten_pintar;
 \q
 
 # Inisialisasi tabel
+cd backend
 python create_tables.py
 ```
 
@@ -172,6 +166,21 @@ cp .env.example .env
 # Edit .env dengan konfigurasi kamu
 ```
 
+Contoh `.env`:
+```env
+# Database
+DB_USER=postgres
+DB_PASSWORD=your_password_here
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=asisten_pintar
+
+# Ollama
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=qwen2.5:14b-instruct-q4_K_M
+OLLAMA_VISION_MODEL=hf.co/bartowski/Qwen2-VL-2B-Instruct-GGUF:Q4_K_M
+```
+
 ### 7. Jalankan Aplikasi
 
 ```bash
@@ -179,10 +188,12 @@ cp .env.example .env
 ollama serve
 
 # Terminal 2 - Backend
+cd backend
 uvicorn app.main:app --reload --port 8000
 
 # Terminal 3 - Frontend
-streamlit run ../frontend/app.py
+cd frontend
+streamlit run app.py
 ```
 
 ### 8. Akses Aplikasi
@@ -208,21 +219,22 @@ Buka browser: **http://localhost:8501**
 2. Upload surat masuk
 3. Sistem akan mengekstrak teks dan menganalisis
 4. Dapatkan rekomendasi:
-   - Ringkasan surat
-   - Kategori (Keuangan/Kepegawaian/Infrastruktur/Protokoler/Umum)
-   - Tujuan disposisi
-   - Tingkat urgensi (Biasa/Penting/Segera)
+   - **Ringkasan** surat
+   - **Kategori** (Keuangan/Kepegawaian/Infrastruktur/Protokoler/Umum)
+   - **Tujuan disposisi** (Bagian/Seksi yang tepat)
+   - **Tingkat urgensi** (Biasa/Penting/Segera)
+5. Simpan ke arsip dengan satu klik
 
 ### 📋 TND Validator
 
 1. Pilih menu **"TND Validator"**
 2. Upload dokumen surat (DOCX/PDF/TXT)
 3. Sistem akan memeriksa:
-   - Format nomor surat
-   - Jenis font (Arial/Times New Roman 12pt)
-   - Keberadaan kop surat
-   - Tanda tangan
-   - Struktur surat
+   - ✅ Format nomor surat
+   - ✅ Jenis font (Arial/Times New Roman 12pt)
+   - ✅ Keberadaan kop surat
+   - ✅ Tanda tangan
+   - ✅ Struktur surat
 
 ### 📂 Arsip Digital
 
@@ -230,6 +242,15 @@ Buka browser: **http://localhost:8501**
 2. Kelola arsip dengan klasifikasi (Aktif/Inaktif/Statis)
 3. Cari arsip berdasarkan kata kunci, tanggal, atau nomor surat
 4. Lihat riwayat akses dokumen
+
+### 📊 Dashboard
+
+- 📨 Total dokumen yang diproses
+- 📤 Total surat masuk
+- ⏳ Disposisi dalam proses
+- ✅ Disposisi selesai
+- 📂 Statistik arsip per klasifikasi
+- 📄 Dokumen terbaru
 
 ---
 
@@ -247,6 +268,9 @@ asisten-pintar/
 │   │   │   ├── prompts.py
 │   │   │   └── whisper_engine.py
 │   │   ├── modules/           # Modul Fitur
+│   │   │   ├── disposisi/
+│   │   │   ├── notulen/
+│   │   │   ├── arsip/
 │   │   │   └── tnd_validator/
 │   │   ├── __init__.py
 │   │   ├── config.py
@@ -299,6 +323,13 @@ services.msc
 psql -U postgres -d asisten_pintar
 ```
 
+### Timeout pada File Besar
+
+Untuk file PDF dengan banyak halaman, gunakan mode **Vision AI** yang lebih cepat:
+1. Pilih **"👁️ Vision AI (Qwen2-VL)"**
+2. Upload file
+3. Proses lebih cepat!
+
 ---
 
 ## 🤝 Kontribusi
@@ -334,6 +365,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 - **FastAPI** - Web Framework
 - **Streamlit** - UI Framework
 - **PostgreSQL** - Database
+- **Qwen** - AI Models
 
 ---
 
@@ -350,23 +382,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
     <a href="https://github.com/duhemen/asisten-pintar/issues">Request Feature</a>
   </p>
 </div>
-```
-
----
-
-## 📝 Cara Menambahkan README ke GitHub
-
-```bash
-# 1. Buat file README.md di root proyek
-# 2. Copy paste kode di atas
-# 3. Simpan
-
-# 4. Add dan commit
-git add README.md
-git commit -m "docs: add professional README.md"
-
-# 5. Push ke GitHub
-git push
-```
 
 ---
